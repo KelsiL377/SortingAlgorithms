@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kelhenson.sortingalgorithms.SortingController">
+    
+    <alignment>CENTER</alignment>
+   <BarChart fx:id="numbersChart" GridPane.columnSpan="4">
+     <xAxis>
+       <CategoryAxis side="BOTTOM" />
+     </xAxis>
+     <yAxis>
+       <NumberAxis side="LEFT" />
+     </yAxis>
+   </BarChart>
+   <Button minWidth="50.0" mnemonicParsing="false" onAction="#onInfoButtonClick" text="Info" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+   <Button minWidth="60.0" mnemonicParsing="false" onAction="#onStartButtonClick" text="Start" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+   <Slider fx:id="numOfComputationsSlider" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   <Button minWidth="50.0" mnemonicParsing="false" onAction="#onHomeButtonClick" text="Home" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+       <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>
