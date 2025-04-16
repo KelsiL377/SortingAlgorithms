@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"-->
+<!--      fx:controller="org.kelhenson.sortingalgorithms.controllers.MergeSortController">-->
+<!--    <padding>-->
+<!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
+<!--    </padding>-->
+<!--    <Label fx:id="welcomeText"/>-->
+<!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
+<!--</VBox>-->
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.kelhenson.sortingalgorithms.controllers.HomeController">
+    <Label style="-fx-font-weight: bold;-fx-font-size: 22" text="Welcome to the Sorting Algorithm!" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <Label style="-fx-font-size: 15" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" textAlignment="CENTER">
+        <text>The Sorting Algorithm demonstrates the four following ways of sorting number algorithically</text>
+        <padding>
+            <Insets left="25.0" right="25.0" />
+        </padding>
+    </Label>
+
+
+    <Button fx:id="mergeSortBtn" minWidth="50" mnemonicParsing="false" text="Merge Sort" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#onMergeSortButtonClick" />
+    <Button minWidth="50" mnemonicParsing="false" text="Bubble Sort" GridPane.halignment="CENTER" GridPane.rowIndex="3" onAction="#onBubbleSortButtonClick" />
+    <Button minWidth="50" mnemonicParsing="false" text="Heap Sort" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#onHeapSortButtonClick" />
+    <Button minWidth="50" mnemonicParsing="false" text="Quick Sort" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" onAction="#onQuickSortButtonClick" />
+    <Button minWidth="50" mnemonicParsing="false" text="Exit" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" onAction="#onExitButtonClick" />
+
+
+    <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>
