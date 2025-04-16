@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kelhenson.sortingalgorithms.SortingController">
+<GridPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.kelhenson.sortingalgorithms.controllers.MergeSortController">
     
     <alignment>CENTER</alignment>
    <BarChart fx:id="numbersChart" GridPane.columnSpan="4">

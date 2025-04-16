@@ -1,19 +1,16 @@
-package org.kelhenson.sortingalgorithms;
+package org.kelhenson.sortingalgorithms.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MergeSortController {
+public class MergeSortController extends AppController {
     @FXML
     private Slider numOfComputationsSlider;
 
@@ -47,12 +44,7 @@ public class MergeSortController {
 
     @FXML
     protected void onHomeButtonClick() throws IOException {
-        numOfComputationsSlider.getScene().getWindow().hide();
-        FXMLLoader fxmlLoader = new FXMLLoader(SortingApplication.class.getResource("home.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 400);
-        Stage stage = new Stage();
-        stage.setTitle("Sorting Application");
-        stage.setScene(scene);
-        stage.show();
+        closeCurrAndOpenNewWindow(numOfComputationsSlider.getScene().getWindow(),
+                "home.fxml", 400, 400, "Sorting Application", false);
     }
 }
