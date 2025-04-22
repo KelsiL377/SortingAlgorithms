@@ -7,15 +7,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MergeSortController extends AppController {
+
     @FXML
     private Slider numOfComputationsSlider;
 
@@ -25,19 +28,17 @@ public class MergeSortController extends AppController {
     @FXML
     private BarChart<String, Number> barChart;
 
-    private int swapListIdx = 0;
-    private boolean isStarted = false;
-    private List<Integer> mergeSortList = new ArrayList<>();
-    private final List<Map<Integer, Integer>> swapList = new ArrayList<>();
+    private final String msgTxt = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
+            " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
+            "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
+            "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
+            "literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 " +
+            "of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. " +
+            "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line " +
+            "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
 
     public void initialize() {
-        //Initialize BarChart with values 1-50, in shuffled order
-        for (int i=1; i<=50; i++) mergeSortList.add(i);
-        Collections.shuffle(mergeSortList);
-
-        XYChart.Series<String, Number> xyChart = new XYChart.Series<>();
-        for (Integer i : mergeSortList) xyChart.getData().add(new XYChart.Data<>(String.valueOf(i), i));
-        barChart.getData().add(xyChart);
+        barChart = super.initValues(barChart);
         mergeSortList = mergeSort(new ArrayList<>(mergeSortList), 0);
     }
 
@@ -47,20 +48,7 @@ public class MergeSortController extends AppController {
 
     @FXML
     protected void onInfoButtonClick() {
-        Alert msg = new Alert(Alert.AlertType.INFORMATION);
-        msg.setTitle("Merge Sort Algorithm");
-        msg.setHeaderText(null); // No header text
-        String msgTxt = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
-                " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
-                "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
-                "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
-                "literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 " +
-                "of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. " +
-                "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line " +
-                "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
-        msg.setContentText(msgTxt);
-        msg.showAndWait();
-        System.out.println("Info btn clicked");
+        displayInfoMsg("Merge Sort Algorithm", msgTxt);
     }
 
     @FXML
@@ -145,7 +133,7 @@ public class MergeSortController extends AppController {
             swap.play();
             swap.setOnFinished((e) -> {
                 try {
-                    Thread.sleep((long) (1000 - numOfComputationsSlider.getValue() * 100));
+                    Thread.sleep((long) (1000 - (numOfComputationsSlider.getValue() * 100)));
                     sortedBar.getNode().setStyle("");
                     swappedBar.getNode().setStyle("");
                     if (swapListIdx++ < swapList.size() - 1) barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());
@@ -167,4 +155,5 @@ public class MergeSortController extends AppController {
         secondTranslate.setByX(sortedBarX - swappedBarX);
         return new ParallelTransition(firstTranslate, secondTranslate);
     }
+
 }
