@@ -12,7 +12,7 @@ public class HomeController extends AppController {
     @FXML
     protected void onMergeSortButtonClick() throws IOException {
         closeCurrAndOpenNewWindow(mergeSortBtn.getScene().getWindow(),
-                "merge-sort.fxml", 800, 500, "Merge Sort", true);
+                "merge-sort.fxml", 1000, 500, "Merge Sort", true);
     }
 
     @FXML

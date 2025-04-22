@@ -4,6 +4,7 @@ module org.kelhenson.sortingalgorithms {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql.rowset;
 
     opens org.kelhenson.sortingalgorithms to javafx.fxml;
     exports org.kelhenson.sortingalgorithms;
