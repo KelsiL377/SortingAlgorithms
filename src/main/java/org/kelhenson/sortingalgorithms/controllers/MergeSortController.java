@@ -35,7 +35,7 @@ public class MergeSortController extends AppController {
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
-        mergeSortList = mergeSort(new ArrayList<>(mergeSortList), 0);
+        sortList = mergeSort(new ArrayList<>(sortList), 0);
     }
 
     //********************************//
@@ -91,11 +91,11 @@ public class MergeSortController extends AppController {
     }
 
     private void updateMergeSortList(int sortedValue, int sortedIdx) {
-        int swappedIdx =  mergeSortList.indexOf(sortedValue);
-        int swappedValue = mergeSortList.get(sortedIdx);
+        int swappedIdx =  sortList.indexOf(sortedValue);
+        int swappedValue = sortList.get(sortedIdx);
         if (sortedValue != swappedValue) {
-            mergeSortList.set(sortedIdx, sortedValue);
-            mergeSortList.set(swappedIdx, swappedValue);
+            sortList.set(sortedIdx, sortedValue);
+            sortList.set(swappedIdx, swappedValue);
             swapList.add(new HashMap<>() {{ put(sortedValue, swappedValue); }});
         }
     }

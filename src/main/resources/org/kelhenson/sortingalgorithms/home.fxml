@@ -27,7 +27,7 @@
     <Button fx:id="mergeSortBtn" minWidth="50" mnemonicParsing="false" text="Merge Sort" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#onMergeSortButtonClick" />
     <Button minWidth="50" mnemonicParsing="false" text="Bubble Sort" GridPane.halignment="CENTER" GridPane.rowIndex="3" onAction="#onBubbleSortButtonClick" />
     <Button minWidth="50" mnemonicParsing="false" text="Heap Sort" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#onHeapSortButtonClick" />
-    <Button minWidth="50" mnemonicParsing="false" text="Quick Sort" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" onAction="#onQuickSortButtonClick" />
+    <Button fx:id="quickSortBtn" minWidth="50" mnemonicParsing="false" text="Quick Sort" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" onAction="#onQuickSortButtonClick" />
     <Button minWidth="50" mnemonicParsing="false" text="Exit" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" onAction="#onExitButtonClick" />
 
 

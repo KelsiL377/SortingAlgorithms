@@ -10,6 +10,9 @@ public class HomeController extends AppController {
     private Button mergeSortBtn;
 
     @FXML
+    private Button quickSortBtn;
+
+    @FXML
     protected void onMergeSortButtonClick() throws IOException {
         closeCurrAndOpenNewWindow(mergeSortBtn.getScene().getWindow(),
                 "merge-sort.fxml", 1000, 500, "Merge Sort", true);
@@ -26,8 +29,9 @@ public class HomeController extends AppController {
     }
 
     @FXML
-    protected void onQuickSortButtonClick() {
-        System.out.println("Quick btn clicked");
+    protected void onQuickSortButtonClick() throws IOException {
+        closeCurrAndOpenNewWindow(quickSortBtn.getScene().getWindow(),
+                "quick-sort.fxml", 1000, 500, "Quick Sort", true);
     }
 
     @FXML

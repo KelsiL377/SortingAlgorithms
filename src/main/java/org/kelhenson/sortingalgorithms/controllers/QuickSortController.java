@@ -35,7 +35,9 @@ public class QuickSortController extends AppController {
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
-        mergeSortList = mergeSort(new ArrayList<>(mergeSortList), 0);
+        System.out.println("initialize before -> " + sortList);
+        sortList = quickSort(new ArrayList<>(sortList));
+        System.out.println("initialize after -> " + sortList);
     }
 
     //********************************//
@@ -57,45 +59,43 @@ public class QuickSortController extends AppController {
     //           Merge Sort           //
     //********************************//
 
-    public List<Integer> mergeSort(List<Integer> list, int idx) {
-        int k = 0, i = 0, j = 0;
-        int listSize = list.size();
-        if (listSize < 2) return list;
-        int midIdx = listSize / 2;
+    public List<Integer> quickSort(List<Integer> list) {
+//        int k = 0, i = 0, j = 0;
+        System.out.println("QuickSort -> " + list);
+        if (list.size() < 2) return list;
+        int pivotVal = list.getFirst();
 
         //Initialize left and right lists
         List<Integer> lList = new ArrayList<>();
         List<Integer> rList = new ArrayList<>();
-        for (int l = 0; l < midIdx; l++) lList.add(list.get(l));
-        for (int r = midIdx; r < listSize; r++) rList.add(list.get(r));
+        for (int i=1; i<list.size(); i++) {
+            if (list.get(i) < pivotVal) lList.add(list.get(i));
+            else rList.add(list.get(i));
+        }
 
         //Recursive calls to mergeSort and then to merge the two lists together
-        mergeSort(lList, idx);
-        mergeSort(rList, idx + midIdx);
-        list = merge(list, lList, rList, k, i, j, idx);
-        return list;
+        System.out.println("QuickSort lList -> " + lList);
+        System.out.println("QuickSort rList -> " + rList);
+        lList = quickSort(lList);
+        rList = quickSort(rList);
+        return merge(pivotVal, lList, rList);
     }
 
-    public List<Integer> merge(List<Integer> list, List<Integer> lList, List<Integer> rList, int k, int i, int j, int idx)
+    public List<Integer> merge(int pivotValue, List<Integer> lList, List<Integer> rList)
     {
-        while (i<lList.size() || j<rList.size()) {
-            if (i>=lList.size()) list.set(k, rList.get(j++));
-            else if (j>=rList.size()) list.set(k, lList.get(i++));
-            else {
-                if (lList.get(i) < rList.get(j)) list.set(k, lList.get(i++));
-                else list.set(k, rList.get(j++));
-            }
-            updateMergeSortList(list.get(k), idx+k++);
-        }
-        return list;
+        lList.add(pivotValue);
+        lList.addAll(rList);
+//        updateMergeSortList(list.get(k), idx+k++);
+        System.out.println("merge -> " + lList);
+        return lList;
     }
 
     private void updateMergeSortList(int sortedValue, int sortedIdx) {
-        int swappedIdx =  mergeSortList.indexOf(sortedValue);
-        int swappedValue = mergeSortList.get(sortedIdx);
+        int swappedIdx =  sortList.indexOf(sortedValue);
+        int swappedValue = sortList.get(sortedIdx);
         if (sortedValue != swappedValue) {
-            mergeSortList.set(sortedIdx, sortedValue);
-            mergeSortList.set(swappedIdx, swappedValue);
+            sortList.set(sortedIdx, sortedValue);
+            sortList.set(swappedIdx, swappedValue);
             swapList.add(new HashMap<>() {{ put(sortedValue, swappedValue); }});
         }
     }

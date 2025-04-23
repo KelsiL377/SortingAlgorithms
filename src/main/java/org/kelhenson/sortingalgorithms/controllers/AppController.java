@@ -27,7 +27,7 @@ public class AppController {
 
     protected int swapListIdx = 0;
     protected boolean isStarted = false;
-    protected List<Integer> mergeSortList = new ArrayList<>();
+    protected List<Integer> sortList = new ArrayList<>();
     protected final List<Map<Integer, Integer>> swapList = new ArrayList<>();
 
     private BarChart<String, Number> barChart;
@@ -42,10 +42,10 @@ public class AppController {
         this.homeBtn = homeBtn;
 
         //Initialize BarChart with values 1-50, in shuffled order
-        for (int i=1; i<=50; i++) mergeSortList.add(i);
-        Collections.shuffle(mergeSortList);
+        for (int i=1; i<=50; i++) sortList.add(i);
+        Collections.shuffle(sortList);
         XYChart.Series<String, Number> xyChart = new XYChart.Series<>();
-        for (Integer i : mergeSortList) xyChart.getData().add(new XYChart.Data<>(String.valueOf(i), i));
+        for (Integer i : sortList) xyChart.getData().add(new XYChart.Data<>(String.valueOf(i), i));
         barChart.getData().add(xyChart);
         return barChart;
     }
