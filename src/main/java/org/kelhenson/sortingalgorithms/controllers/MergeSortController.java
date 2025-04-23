@@ -1,21 +1,14 @@
 package org.kelhenson.sortingalgorithms.controllers;
 
-import javafx.animation.Animation;
-import javafx.animation.ParallelTransition;
-import javafx.animation.TranslateTransition;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MergeSortController extends AppController {
 
@@ -26,9 +19,12 @@ public class MergeSortController extends AppController {
     private Button startBtn;
 
     @FXML
+    private Button homeBtn;
+
+    @FXML
     private BarChart<String, Number> barChart;
 
-    private final String msgTxt = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
+    private final static String MSG_TXT = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
             " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
             "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
             "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
@@ -38,7 +34,7 @@ public class MergeSortController extends AppController {
             "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
 
     public void initialize() {
-        barChart = super.initValues(barChart);
+        barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
         mergeSortList = mergeSort(new ArrayList<>(mergeSortList), 0);
     }
 
@@ -48,26 +44,14 @@ public class MergeSortController extends AppController {
 
     @FXML
     protected void onInfoButtonClick() {
-        displayInfoMsg("Merge Sort Algorithm", msgTxt);
+        displayInfoMsg("Merge Sort Algorithm", MSG_TXT);
     }
 
     @FXML
-    protected void onStartButtonClick() {
-        if (!isStarted) {
-            isStarted = true;
-            startBtn.setText("Pause");
-            barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());
-        } else {
-            isStarted = false;
-            startBtn.setText("Start");
-        }
-    }
+    protected void onStartButtonClick() { startOrPauseBtnClicked(); }
 
     @FXML
-    protected void onHomeButtonClick() throws IOException {
-        closeCurrAndOpenNewWindow(numOfComputationsSlider.getScene().getWindow(),
-                "home.fxml", 400, 400, "Sorting Application", false);
-    }
+    protected void onHomeButtonClick() throws IOException { navigateToHome(); }
 
     //********************************//
     //           Merge Sort           //
@@ -115,45 +99,4 @@ public class MergeSortController extends AppController {
             swapList.add(new HashMap<>() {{ put(sortedValue, swappedValue); }});
         }
     }
-
-    //********************************//
-    //       BarChart animation       //
-    //********************************//
-
-    private synchronized void barChartVisualSort(Map.Entry<Integer, Integer> swapMap) {
-        if (isStarted) {
-            ObservableList<XYChart.Data<String, Number>> data = barChart.getData().getFirst().getData();
-            XYChart.Data<String, Number> sortedBar = data.stream().filter((e) -> e.getYValue().equals(swapMap.getKey())).toList().getFirst();
-            XYChart.Data<String, Number> swappedBar = data.stream().filter((e) -> e.getYValue().equals(swapMap.getValue())).toList().getFirst();
-
-            sortedBar.getNode().setStyle("-fx-background-color: green ;");
-            swappedBar.getNode().setStyle("-fx-background-color: green ;");
-
-            Animation swap = createSwapAnimation(sortedBar, swappedBar);
-            swap.play();
-            swap.setOnFinished((e) -> {
-                try {
-                    Thread.sleep((long) (1000 - (numOfComputationsSlider.getValue() * 100)));
-                    sortedBar.getNode().setStyle("");
-                    swappedBar.getNode().setStyle("");
-                    if (swapListIdx++ < swapList.size() - 1) barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());
-                    else startBtn.setDisable(true);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-        }
-    }
-
-    private <T> Animation createSwapAnimation(XYChart.Data<?, T> first, XYChart.Data<?, T> second) {
-        double sortedBarX = first.getNode().getParent().localToScene(first.getNode().getBoundsInParent()).getMinX();
-        double swappedBarX = first.getNode().getParent().localToScene(second.getNode().getBoundsInParent()).getMinX();
-
-        TranslateTransition firstTranslate = new TranslateTransition(Duration.millis(500), first.getNode());
-        firstTranslate.setByX(swappedBarX - sortedBarX);
-        TranslateTransition secondTranslate = new TranslateTransition(Duration.millis(500), second.getNode());
-        secondTranslate.setByX(sortedBarX - swappedBarX);
-        return new ParallelTransition(firstTranslate, secondTranslate);
-    }
-
 }

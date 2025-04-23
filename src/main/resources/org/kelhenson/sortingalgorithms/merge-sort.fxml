@@ -18,7 +18,7 @@
    <Button minWidth="50.0" mnemonicParsing="false" onAction="#onInfoButtonClick" text="Info" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
    <Button fx:id="startBtn" minWidth="60.0" mnemonicParsing="false" onAction="#onStartButtonClick" text="Start" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
    <Slider fx:id="numOfComputationsSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-   <Button minWidth="50.0" mnemonicParsing="false" onAction="#onHomeButtonClick" text="Home" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+   <Button fx:id="homeBtn" minWidth="50.0" mnemonicParsing="false" onAction="#onHomeButtonClick" text="Home" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
    <columnConstraints>
       <ColumnConstraints minWidth="10.0" prefWidth="250.0" />
       <ColumnConstraints minWidth="10.0" prefWidth="250.0" />
