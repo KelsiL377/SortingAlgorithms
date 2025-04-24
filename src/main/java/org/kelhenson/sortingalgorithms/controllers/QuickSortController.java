@@ -35,9 +35,7 @@ public class QuickSortController extends AppController {
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
-        System.out.println("initialize before -> " + sortList);
         sortList = quickSort(new ArrayList<>(sortList));
-        System.out.println("initialize after -> " + sortList);
     }
 
     //********************************//
@@ -46,7 +44,7 @@ public class QuickSortController extends AppController {
 
     @FXML
     protected void onInfoButtonClick() {
-        displayInfoMsg("Merge Sort Algorithm", MSG_TXT);
+        displayInfoMsg("Quick Sort Algorithm", MSG_TXT);
     }
 
     @FXML
@@ -60,42 +58,28 @@ public class QuickSortController extends AppController {
     //********************************//
 
     public List<Integer> quickSort(List<Integer> list) {
-//        int k = 0, i = 0, j = 0;
-        System.out.println("QuickSort -> " + list);
         if (list.size() < 2) return list;
-        int pivotVal = list.getFirst();
+        int pivotVal = list.getLast();
+        swapList.add(new HashMap<>() {{ put(pivotVal, -1); }});
 
-        //Initialize left and right lists
-        List<Integer> lList = new ArrayList<>();
-        List<Integer> rList = new ArrayList<>();
-        for (int i=1; i<list.size(); i++) {
-            if (list.get(i) < pivotVal) lList.add(list.get(i));
-            else rList.add(list.get(i));
-        }
+        //sort values smaller than pivot to the left side
+        int sortedIdx = 0;
+        for (int i=0; i<list.size()-1; i++) if (list.get(i) < pivotVal) swap(list, i, sortedIdx++);
+        swap(list, list.indexOf(pivotVal), sortedIdx);
 
-        //Recursive calls to mergeSort and then to merge the two lists together
-        System.out.println("QuickSort lList -> " + lList);
-        System.out.println("QuickSort rList -> " + rList);
-        lList = quickSort(lList);
-        rList = quickSort(rList);
-        return merge(pivotVal, lList, rList);
+        //Recursive calls to quickSort to sort left and right of pivotValue, and then return sorted list
+        quickSort(list.subList(0, sortedIdx)); //left of pivot
+        quickSort(list.subList(sortedIdx+1, list.size())); //right of pivot
+        return list;
     }
 
-    public List<Integer> merge(int pivotValue, List<Integer> lList, List<Integer> rList)
+    public void swap(List<Integer> list, int swappedIdx, int sortedIdx)
     {
-        lList.add(pivotValue);
-        lList.addAll(rList);
-//        updateMergeSortList(list.get(k), idx+k++);
-        System.out.println("merge -> " + lList);
-        return lList;
-    }
-
-    private void updateMergeSortList(int sortedValue, int sortedIdx) {
-        int swappedIdx =  sortList.indexOf(sortedValue);
-        int swappedValue = sortList.get(sortedIdx);
+        int swappedValue = list.get(sortedIdx);
+        int sortedValue = list.get(swappedIdx);
         if (sortedValue != swappedValue) {
-            sortList.set(sortedIdx, sortedValue);
-            sortList.set(swappedIdx, swappedValue);
+            list.set(sortedIdx, sortedValue);
+            list.set(swappedIdx, swappedValue);
             swapList.add(new HashMap<>() {{ put(sortedValue, swappedValue); }});
         }
     }

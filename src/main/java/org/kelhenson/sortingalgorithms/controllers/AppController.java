@@ -29,6 +29,9 @@ public class AppController {
     protected boolean isStarted = false;
     protected List<Integer> sortList = new ArrayList<>();
     protected final List<Map<Integer, Integer>> swapList = new ArrayList<>();
+    protected boolean isQuickSort = false;
+    protected int oldPivotValue = -1;
+    protected int newPivotValue = 0;
 
     private BarChart<String, Number> barChart;
     private Slider numOfComputationsSlider;
@@ -94,24 +97,30 @@ public class AppController {
     protected void barChartVisualSort(Map.Entry<Integer, Integer> swapMap) {
         if (isStarted) {
             ObservableList<XYChart.Data<String, Number>> data = barChart.getData().getFirst().getData();
-            XYChart.Data<String, Number> sortedBar = data.stream().filter((e) -> e.getYValue().equals(swapMap.getKey())).toList().getFirst();
-            XYChart.Data<String, Number> swappedBar = data.stream().filter((e) -> e.getYValue().equals(swapMap.getValue())).toList().getFirst();
+            if (swapMap.getValue() == -1) { //quickSort pivot value
+                newPivotValue = swapMap.getKey();
+                colorSpecifiedBar(data);
+                if (swapListIdx++ < swapList.size() - 1) barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());
+            } else {
+                XYChart.Data<String, Number> sortedBar = data.stream().filter((e) -> e.getYValue().equals(swapMap.getKey())).toList().getFirst();
+                XYChart.Data<String, Number> swappedBar = data.stream().filter((e) -> e.getYValue().equals(swapMap.getValue())).toList().getFirst();
 
-            sortedBar.getNode().setStyle("-fx-background-color: green ;");
-            swappedBar.getNode().setStyle("-fx-background-color: green ;");
+                sortedBar.getNode().setStyle("-fx-background-color: green ;");
+                swappedBar.getNode().setStyle("-fx-background-color: green ;");
 
-            Animation swap = createSwapAnimation(sortedBar, swappedBar);
-            swap.play();
-            swap.setOnFinished((e) -> {
-                try {
-                    Thread.sleep((long) (1000 - (numOfComputationsSlider.getValue() * 100)));
-                    sortedBar.getNode().setStyle("");
-                    swappedBar.getNode().setStyle("");
-                    if (swapListIdx++ < swapList.size() - 1) barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+                Animation swap = createSwapAnimation(sortedBar, swappedBar);
+                swap.play();
+                swap.setOnFinished((e) -> {
+                    try {
+                        Thread.sleep((long) (1000 - (numOfComputationsSlider.getValue() * 100)));
+                        sortedBar.getNode().setStyle("");
+                        swappedBar.getNode().setStyle("");
+                        if (swapListIdx++ < swapList.size() - 1) barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
         }
         if (!isStarted || swapListIdx >= swapList.size()-1) {
             homeBtn.setDisable(false); //if Paused OR End, enable btn
@@ -129,5 +138,15 @@ public class AppController {
         TranslateTransition secondTranslate = new TranslateTransition(Duration.millis(500), second.getNode());
         secondTranslate.setByX(sortedBarX - swappedBarX);
         return new ParallelTransition(firstTranslate, secondTranslate);
+    }
+
+    protected void colorSpecifiedBar(ObservableList<XYChart.Data<String, Number>> data) {
+        if (oldPivotValue != -1) {
+            XYChart.Data<String, Number> oldPivotBar = data.stream().filter((e) -> e.getYValue().equals(oldPivotValue)).toList().getFirst();
+            oldPivotBar.getNode().setStyle("");
+        }
+        XYChart.Data<String, Number> newPivotBar = data.stream().filter((e) -> e.getYValue().equals(newPivotValue)).toList().getFirst();
+        newPivotBar.getNode().setStyle("-fx-background-color: blue ;");
+        oldPivotValue = newPivotValue;
     }
 }
