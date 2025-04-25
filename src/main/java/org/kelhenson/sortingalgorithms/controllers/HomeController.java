@@ -19,8 +19,9 @@ public class HomeController extends AppController {
     }
 
     @FXML
-    protected void onBubbleSortButtonClick() {
-        System.out.println("Bubble btn clicked");
+    protected void onBubbleSortButtonClick() throws IOException {
+        closeCurrAndOpenNewWindow(quickSortBtn.getScene().getWindow(),
+                "bubble-sort.fxml", 1000, 500, "Bubble Sort", true);
     }
 
     @FXML

@@ -133,9 +133,9 @@ public class AppController {
         double sortedBarX = first.getNode().getParent().localToScene(first.getNode().getBoundsInParent()).getMinX();
         double swappedBarX = first.getNode().getParent().localToScene(second.getNode().getBoundsInParent()).getMinX();
 
-        TranslateTransition firstTranslate = new TranslateTransition(Duration.millis(500), first.getNode());
+        TranslateTransition firstTranslate = new TranslateTransition(Duration.millis(1100 - (numOfComputationsSlider.getValue() * 100)), first.getNode());
         firstTranslate.setByX(swappedBarX - sortedBarX);
-        TranslateTransition secondTranslate = new TranslateTransition(Duration.millis(500), second.getNode());
+        TranslateTransition secondTranslate = new TranslateTransition(Duration.millis(1100 - (numOfComputationsSlider.getValue() * 100)), second.getNode());
         secondTranslate.setByX(sortedBarX - swappedBarX);
         return new ParallelTransition(firstTranslate, secondTranslate);
     }
