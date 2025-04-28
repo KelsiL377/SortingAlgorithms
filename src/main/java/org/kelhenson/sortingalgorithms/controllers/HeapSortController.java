@@ -24,20 +24,20 @@ public class HeapSortController extends AppController {
     @FXML
     private BarChart<String, Number> barChart;
 
-    private final static String MSG_TXT = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
-            " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
-            "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
-            "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
-            "literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 " +
-            "of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. " +
-            "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line " +
-            "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
+    private final static String MSG_TXT = "The Heap sort algorithm is an efficient sorting method based on the heap data" +
+            " structure. It is the most confusing of the sorts to understand. The list is first \"heapified\"," +
+            " or put into a tree-like structure called a binary tree, where each item will have up to one parent node, " +
+            "and up to two children nodes. By repeated comparison of parent and child nodes, the binary tree will be " +
+            "sorted so the largest item in the tree will be sorted to the very top or root of the tree. Then, this top " +
+            "node is removed from the tree to be placed in the list. This process is repeated until all the items have " +
+            "been sorted. \n\nThe Big O time complexity of this sort algorithm (or the worst case performance) is quasilinear, " +
+            "or O(n log n), meaning as the number of items to be sorted increases, the time to sort them will increase " +
+            "almost linearly, but slightly more. In comparison to other sorts, it has same time performance as the merge " +
+            "sort and quick sort but is faster than the bubble sort.";
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
-        System.out.println("init before -> " + sortList);
         sortList = heapSort(new ArrayList<>(sortList), sortList.size()-1);
-        System.out.println("init after -> " + sortList);
     }
 
     //********************************//
@@ -59,7 +59,7 @@ public class HeapSortController extends AppController {
     //           Heap Sort            //
     //********************************//
 
-    public List<Integer> heapSort(List<Integer> list, int sortedIdx) {
+    private List<Integer> heapSort(List<Integer> list, int sortedIdx) {
         if (sortedIdx < 1) return list;
         heapify(list, 0, sortedIdx);
         swap(list, sortedIdx, 0, list.get(sortedIdx), list.getFirst());
@@ -72,7 +72,7 @@ public class HeapSortController extends AppController {
         int rightChildIdx = (currIdx*2) + 2;
         if (leftChildIdx > sortedIdx && rightChildIdx > sortedIdx) return;
 
-        //Recursive calls to mergeSort and then to merge the two lists together
+        //Recursive calls to heapify and then to check if parent and child node should be swapped
         if (leftChildIdx <= sortedIdx) {
             heapify(list, leftChildIdx, sortedIdx);
             checkToSwap(list, currIdx, leftChildIdx);

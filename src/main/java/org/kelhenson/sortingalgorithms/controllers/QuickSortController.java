@@ -24,14 +24,15 @@ public class QuickSortController extends AppController {
     @FXML
     private BarChart<String, Number> barChart;
 
-    private final static String MSG_TXT = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
-            " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
-            "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
-            "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
-            "literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 " +
-            "of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. " +
-            "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line " +
-            "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
+    private final static String MSG_TXT = "The Quick sort algorithm is a \"divide and conquer\" method of sorting." +
+            " By this, we mean that we take a list of items and repeatedly divide it into two sublists, based on a pivot" +
+            " value. First, we pick an item as the \"pivot\". Then we sort all the smaller items to the left of the pivot, " +
+            "and all the larger items to the right. For each sublist, we repeat the process, picking a pivot and sorting " +
+            "into smaller and larger items compared to the pivot. In this way the whole list is sorted. \n\nThe Big O time " +
+            "complexity of this sort algorithm (or the worst case performance) is quasilinear, or O(n log n), meaning as " +
+            "the number of items to be sorted increases, the time to sort them will increase almost linearly, but " +
+            "slightly more. In comparison to other sorts, it has same time performance as the merge sort and the heap " +
+            "sort but is faster than the bubble sort.";
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
@@ -54,10 +55,10 @@ public class QuickSortController extends AppController {
     protected void onHomeButtonClick() throws IOException { navigateToHome(); }
 
     //********************************//
-    //           Merge Sort           //
+    //           Quick Sort           //
     //********************************//
 
-    public List<Integer> quickSort(List<Integer> list) {
+    private List<Integer> quickSort(List<Integer> list) {
         if (list.size() < 2) return list;
         int pivotVal = list.getLast();
         swapList.add(new HashMap<>() {{ put(pivotVal, -1); }});
@@ -73,8 +74,7 @@ public class QuickSortController extends AppController {
         return list;
     }
 
-    public void swap(List<Integer> list, int swappedIdx, int sortedIdx)
-    {
+    private void swap(List<Integer> list, int swappedIdx, int sortedIdx) {
         int swappedValue = list.get(sortedIdx);
         int sortedValue = list.get(swappedIdx);
         if (sortedValue != swappedValue) {

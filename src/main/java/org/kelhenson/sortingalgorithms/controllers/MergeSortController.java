@@ -24,14 +24,14 @@ public class MergeSortController extends AppController {
     @FXML
     private BarChart<String, Number> barChart;
 
-    private final static String MSG_TXT = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
-            " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
-            "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
-            "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
-            "literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 " +
-            "of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. " +
-            "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line " +
-            "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
+    private final static String MSG_TXT = "The Merge Sort algorithm is a popular sorting method known for its stability " +
+            "and efficiency. It uses a \"divide and conquer\" method of sorting. By this, we mean that we take a list of " +
+            "items and repeatedly divide it into two sublists until it can no longer be divided by 2. Then, we will " +
+            "merge those lists back together by sorting all the items from both sublists into one sorted list. \n\nThe Big " +
+            "O time complexity of this sort algorithm (or the worst case performance) is quasilinear, or O(n log n), " +
+            "meaning as the number of items to be sorted increases, the time to sort them will increase almost linearly, " +
+            "but slightly more. In comparison to other sorts, it has same time performance as the heap sort and quick " +
+            "sort but is faster than the bubble sort.";
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
@@ -57,7 +57,7 @@ public class MergeSortController extends AppController {
     //           Merge Sort           //
     //********************************//
 
-    public List<Integer> mergeSort(List<Integer> list, int idx) {
+    private List<Integer> mergeSort(List<Integer> list, int idx) {
         int k = 0, i = 0, j = 0;
         int listSize = list.size();
         if (listSize < 2) return list;
@@ -72,12 +72,11 @@ public class MergeSortController extends AppController {
         //Recursive calls to mergeSort and then to merge the two lists together
         mergeSort(lList, idx);
         mergeSort(rList, idx + midIdx);
-        list = merge(list, lList, rList, k, i, j, idx);
+        merge(list, lList, rList, k, i, j, idx);
         return list;
     }
 
-    public List<Integer> merge(List<Integer> list, List<Integer> lList, List<Integer> rList, int k, int i, int j, int idx)
-    {
+    private void merge(List<Integer> list, List<Integer> lList, List<Integer> rList, int k, int i, int j, int idx) {
         while (i<lList.size() || j<rList.size()) {
             if (i>=lList.size()) list.set(k, rList.get(j++));
             else if (j>=rList.size()) list.set(k, lList.get(i++));
@@ -87,7 +86,6 @@ public class MergeSortController extends AppController {
             }
             updateMergeSortList(list.get(k), idx+k++);
         }
-        return list;
     }
 
     private void updateMergeSortList(int sortedValue, int sortedIdx) {

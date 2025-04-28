@@ -24,14 +24,13 @@ public class BubbleSortController extends AppController {
     @FXML
     private BarChart<String, Number> barChart;
 
-    private final static String MSG_TXT = "\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece" +
-            " of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin " +
-            "professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, " +
-            "consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical " +
-            "literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 " +
-            "of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. " +
-            "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line " +
-            "of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\"";
+    private final static String MSG_TXT = "The Bubble Sort algorithm is a simple sorting algorithm. It works by repeatedly " +
+            "comparing adjacent items and swapping them if they are in the wrong order. In this way, bigger items " +
+            "\"bubble up\" and are eventually sorted to the top. Repeated \"bubbles\" will cause the whole list to be " +
+            "order from smallest to largest. \n\nThe Big O time complexity (or the worst case perfomance) is O(n^2), meaning" +
+            " as the items to be sorted grows, the time to sort them will grow proportionally, or the number of items " +
+            "squared. The more items, the longer the time needed, so if you have a huge list, another sort algorithm such " +
+            "as the merge sort, heap sort, or the quick sort would be more time efficient on average.";
 
     public void initialize() {
         barChart = super.initValues(barChart, numOfComputationsSlider, startBtn, homeBtn);
@@ -54,10 +53,10 @@ public class BubbleSortController extends AppController {
     protected void onHomeButtonClick() throws IOException { navigateToHome(); }
 
     //********************************//
-    //           Merge Sort           //
+    //           Bubble Sort          //
     //********************************//
 
-    public void bubbleSort(List<Integer> list, int numOfItr) {
+    private void bubbleSort(List<Integer> list, int numOfItr) {
         if(numOfItr >= list.size()) return;
 
         //loop through list, swap smaller indexes with larger adjacent ones

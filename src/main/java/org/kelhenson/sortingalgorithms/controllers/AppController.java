@@ -139,7 +139,7 @@ public class AppController {
         return new ParallelTransition(firstTranslate, secondTranslate);
     }
 
-    protected void colorSpecifiedBar(ObservableList<XYChart.Data<String, Number>> data) {
+    private void colorSpecifiedBar(ObservableList<XYChart.Data<String, Number>> data) {
         if (oldPivotValue != -1) {
             XYChart.Data<String, Number> oldPivotBar = data.stream().filter((e) -> e.getYValue().equals(oldPivotValue)).toList().getFirst();
             oldPivotBar.getNode().setStyle("");
