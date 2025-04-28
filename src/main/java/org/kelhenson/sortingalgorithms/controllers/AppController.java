@@ -29,7 +29,6 @@ public class AppController {
     protected boolean isStarted = false;
     protected List<Integer> sortList = new ArrayList<>();
     protected final List<Map<Integer, Integer>> swapList = new ArrayList<>();
-    protected boolean isQuickSort = false;
     protected int oldPivotValue = -1;
     protected int newPivotValue = 0;
 
@@ -97,7 +96,7 @@ public class AppController {
     protected void barChartVisualSort(Map.Entry<Integer, Integer> swapMap) {
         if (isStarted) {
             ObservableList<XYChart.Data<String, Number>> data = barChart.getData().getFirst().getData();
-            if (swapMap.getValue() == -1) { //quickSort pivot value
+            if (swapMap.getValue() == -1) { //quickSort pivot
                 newPivotValue = swapMap.getKey();
                 colorSpecifiedBar(data);
                 if (swapListIdx++ < swapList.size() - 1) barChartVisualSort(swapList.get(swapListIdx).entrySet().iterator().next());

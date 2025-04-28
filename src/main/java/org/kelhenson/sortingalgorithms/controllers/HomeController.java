@@ -25,8 +25,9 @@ public class HomeController extends AppController {
     }
 
     @FXML
-    protected void onHeapSortButtonClick() {
-        System.out.println("Heap btn clicked");
+    protected void onHeapSortButtonClick() throws IOException {
+        closeCurrAndOpenNewWindow(quickSortBtn.getScene().getWindow(),
+                "heap-sort.fxml", 1000, 500, "Heap Sort", true);
     }
 
     @FXML
